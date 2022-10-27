@@ -142,7 +142,7 @@ int izbrisiElement(Pozicija Head) {
     return 0;
 }
 
-int brisanjeCijeleListe(Pozicija Head) {
+/*int brisanjeCijeleListe(Pozicija Head) {
 
     Pozicija privremena = NULL;
 
@@ -157,7 +157,7 @@ int brisanjeCijeleListe(Pozicija Head) {
     printf("Vasa lista je izbrisana!\n");
 
     return 0;
-}
+}*/
 
 int meni(Pozicija Head) {
     
