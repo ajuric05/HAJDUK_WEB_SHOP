@@ -210,4 +210,3 @@ int meni(Pozicija Head) {
 
     return 0;
 }
-
