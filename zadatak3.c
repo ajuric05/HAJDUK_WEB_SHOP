@@ -248,35 +248,35 @@ int dodajIspredOsobe(Pozicija Head) {
     return 0;
 }
 
-int sortirajListu(Pozicija Head) {
+int sortirajListu(Pozicija Head)
+{
+	Pozicija q = NULL;
+	Pozicija preth_q = NULL;
+	Pozicija pomocna = NULL;
+	Pozicija kraj = NULL;
+	while (Head->sljedeci != kraj)
+	{
+		preth_q = Head;
+		q = Head->next;
+		while (q->next != kraj)
+		{
+			if (strcmp(q->prezime, q->sljedeci->prezime) > 0)
+			{
+				pomocna = q->sljedeci;
+				preth_q->sljedeci = pomocna;
+				q->sljedeci = pomocna->sljedeci;
+				pomocna->sljedeci = q;
 
-    Pozicija j = NULL;
-    Pozicija prethodni_j = NULL;
-    Pozicija privremena = NULL;
-    Pozicija kraj = NULL;
+				q = pomocna;
+			}
 
-    while(Head->sljedeci != NULL) {
-        prethodni_j = Head;
-        j = Head->sljedeci;
-
-        while(j->sljedeci != NULL) {
-
-            if(strcmp(j->prezime, j->sljedeci->prezime) > 0) {
-                privremena = j->sljedeci;
-                prethodni_j->sljedeci = privremena;
-                j->sljedeci = privremena->sljedeci;
-                privremena->sljedeci = j;
-                j = privremena;
-            }
-
-            prethodni_j = j;
-            j = j->sljedeci;           
-        }
-
-        kraj = j;
-    }
-
-    return 0;
+			preth_q = q;
+			q = q->sljedeci;
+		}
+		kraj = q;
+	}
+	ispisiListu(Head->sljedeci);
+	return 0;
 }
 
 int unesiListuUDatoteku(Pozicija Head, char imeDatoteke[]) {
