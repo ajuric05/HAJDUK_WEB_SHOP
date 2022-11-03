@@ -275,7 +275,7 @@ int sortirajListu(Pozicija Head)
 		}
 		kraj = q;
 	}
-	ispisiListu(Head->sljedeci);
+	ispisiListu(Head);
 	return 0;
 }
 
