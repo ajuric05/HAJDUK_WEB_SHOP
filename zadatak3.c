@@ -257,8 +257,8 @@ int sortirajListu(Pozicija Head)
 	while (Head->sljedeci != kraj)
 	{
 		preth_q = Head;
-		q = Head->next;
-		while (q->next != kraj)
+		q = Head->sljedeci;
+		while (q->sljedeci != kraj)
 		{
 			if (strcmp(q->prezime, q->sljedeci->prezime) > 0)
 			{
