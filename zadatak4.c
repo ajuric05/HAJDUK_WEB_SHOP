@@ -12,10 +12,10 @@ typedef struct _Polinom* Pozicija;
 typedef struct _Polinom {
     int koeficijent;
     int eksponent;
-    Pozicija slijedeci;
+    Pozicija sljedeci;
 }Polinom;
 
-int citanjeIzDoukumenta(char imeDokumenta[], Pozicija polinom1, Pozicija polinom2);
+int citanjeIzDokumenta(char imeDokumenta[], Pozicija polinom1, Pozicija polinom2);
 int unesiUListu(Pozicija polinom, Pozicija noviElement);
 Pozicija kreirajElement(int koeficijent, int eksponent);
 int zbrajanjePolinoma(Pozicija polinom1, Pozicija polinom2, Pozicija polinomRezultat);
@@ -24,16 +24,16 @@ int ispisiListu(Pozicija polinom);
 
 int main() {
 
-    Polinom polinom1 = {.koeficijent = 0, .eksponent = 0, .slijedeci = NULL};
-    Polinom polinom2 = {.koeficijent = 0, .eksponent = 0, .slijedeci = NULL};
-    Polinom polinom3 = {.koeficijent = 0, .eksponent = 0, .slijedeci = NULL};
-    Polinom polinom4 = {.koeficijent = 0, .eksponent = 0, .slijedeci = NULL};
+    Polinom polinom1 = {.koeficijent = 0, .eksponent = 0, .sljedeci = NULL};
+    Polinom polinom2 = {.koeficijent = 0, .eksponent = 0, .sljedeci = NULL};
+    Polinom polinom3 = {.koeficijent = 0, .eksponent = 0, .sljedeci = NULL};
+    Polinom polinom4 = {.koeficijent = 0, .eksponent = 0, .sljedeci = NULL};
     char imeDokumenta[50];
 
     printf("Unesite ime dokumenta iz kojeg citamo polinome: ");
     scanf(" %[^\n]", imeDokumenta);
 
-    citanjeIzDoukumenta(imeDokumenta, &polinom1, &polinom2);
+    citanjeIzDokumenta(imeDokumenta, &polinom1, &polinom2);
 
     mnozenjePolinoma(&polinom1, &polinom2, &polinom3);
 
@@ -53,7 +53,7 @@ int main() {
     return 0;
 }
 
-int citanjeIzDoukumenta(char imeDokumenta[], Pozicija polinom1, Pozicija polinom2) {
+int citanjeIzDokumenta(char imeDokumenta[], Pozicija polinom1, Pozicija polinom2) {
 
     FILE* fp = NULL;
     int koef = 0;
@@ -130,34 +130,34 @@ Pozicija kreirajElement(int koeficijent, int eksponent) {
 
     noviElement->koeficijent = koeficijent;
     noviElement->eksponent = eksponent;
-    noviElement->slijedeci = NULL;
+    noviElement->sljedeci = NULL;
     
     return noviElement;
 }
 
 int unesiUListu(Pozicija polinom, Pozicija noviElement) {
 
-    if(polinom->slijedeci == NULL)
+    if(polinom->sljedeci == NULL)
         
-        polinom->slijedeci = noviElement;
+        polinom->sljedeci = noviElement;
     
     else {
         
-        while(polinom->slijedeci != NULL && polinom->slijedeci->eksponent > noviElement->eksponent)
-            polinom = polinom->slijedeci;
+        while(polinom->sljedeci != NULL && polinom->sljedeci->eksponent > noviElement->eksponent)
+            polinom = polinom->sljedeci;
         
-        if(polinom->slijedeci != NULL && polinom->slijedeci->eksponent == noviElement->eksponent){
+        if(polinom->sljedeci != NULL && polinom->sljedeci->eksponent == noviElement->eksponent){
            
-            polinom->slijedeci->koeficijent += noviElement->koeficijent;  
+            polinom->sljedeci->koeficijent += noviElement->koeficijent;  
             
             free(noviElement);
         }
         
         else{
             
-            noviElement->slijedeci = polinom->slijedeci;
+            noviElement->sljedeci = polinom->sljedeci;
             
-            polinom->slijedeci = noviElement;
+            polinom->sljedeci = noviElement;
         }
     }
 
@@ -168,11 +168,11 @@ int ispisiListu(Pozicija polinom) {
 
     printf("Polinom: ");
     
-    while (polinom->slijedeci != NULL) {
+    while (polinom->sljedeci != NULL) {
 
-        polinom = polinom->slijedeci;
+        polinom = polinom->sljedeci;
        
-        if(polinom->slijedeci == NULL) {
+        if(polinom->sljedeci == NULL) {
 
             if(polinom->eksponent == 0)
                 printf("%d", polinom->koeficijent);
@@ -196,15 +196,15 @@ int mnozenjePolinoma(Pozicija polinom1, Pozicija polinom2, Pozicija polinomRezul
     Pozicija noviElement = NULL;
     Pozicija privremena = polinom2;
 
-    while(polinom1->slijedeci != NULL) { 
+    while(polinom1->sljedeci != NULL) { 
 
-        polinom1 = polinom1->slijedeci;
+        polinom1 = polinom1->sljedeci;
 
         polinom2 = privremena;
 
-        while(polinom2->slijedeci != NULL) {
+        while(polinom2->sljedeci != NULL) {
 
-            polinom2 = polinom2->slijedeci;
+            polinom2 = polinom2->sljedeci;
 
             noviElement = kreirajElement(polinom1->koeficijent * polinom2->koeficijent, polinom1->eksponent + polinom2->eksponent);
 
@@ -221,20 +221,20 @@ int mnozenjePolinoma(Pozicija polinom1, Pozicija polinom2, Pozicija polinomRezul
     Pozicija temp;
     temp = polinom1;
      
-    while(temp->slijedeci){
+    while(temp->sljedeci){
         
-        unesiUListu(polinomRezultat, kreirajElement(temp->slijedeci->koeficijent, temp->slijedeci->eksponent));
+        unesiUListu(polinomRezultat, kreirajElement(temp->sljedeci->koeficijent, temp->sljedeci->eksponent));
         
-        temp = temp->slijedeci;
+        temp = temp->sljedeci;
     }
      
     temp = polinom2;
      
-    while(temp->slijedeci){
+    while(temp->sljedeci){
         
-        unesiUListu(polinomRezultat, kreirajElement(temp->slijedeci->koeficijent, temp->slijedeci->eksponent));
+        unesiUListu(polinomRezultat, kreirajElement(temp->sljedeci->koeficijent, temp->sljedeci->eksponent));
         
-        temp = temp->slijedeci;
+        temp = temp->sljedeci;
         
     }
      
