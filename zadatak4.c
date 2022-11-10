@@ -35,15 +35,8 @@ int main() {
 
     citanjeIzDoukumenta(imeDokumenta, &polinom1, &polinom2);
 
-    printf("\nPrije:\n");
-    printf("\nPolinom 1: ");
-    ispisiListu(&polinom1);
-    printf("\nPolinom 2: ");
-    ispisiListu(&polinom2);
-
     mnozenjePolinoma(&polinom1, &polinom2, &polinom3);
 
-    printf("\nNakon:\n");
     printf("\nPolinom 1: ");
     ispisiListu(&polinom1);
     printf("\nPolinom 2: ");
@@ -145,18 +138,25 @@ Pozicija kreirajElement(int koeficijent, int eksponent) {
 int unesiUListu(Pozicija polinom, Pozicija noviElement) {
 
     if(polinom->slijedeci == NULL)
+        
         polinom->slijedeci = noviElement;
-
     
     else {
-        while(polinom->slijedeci && polinom->slijedeci->eksponent > noviElement->eksponent)
+        
+        while(polinom->slijedeci != NULL && polinom->slijedeci->eksponent > noviElement->eksponent)
             polinom = polinom->slijedeci;
-        if(polinom->slijedeci && polinom->slijedeci->eksponent == noviElement->eksponent){
-            polinom->slijedeci->koeficijent += noviElement->koeficijent;
+        
+        if(polinom->slijedeci != NULL && polinom->slijedeci->eksponent == noviElement->eksponent){
+           
+            polinom->slijedeci->koeficijent += noviElement->koeficijent;  
+            
             free(noviElement);
         }
+        
         else{
+            
             noviElement->slijedeci = polinom->slijedeci;
+            
             polinom->slijedeci = noviElement;
         }
     }
@@ -220,14 +220,23 @@ int mnozenjePolinoma(Pozicija polinom1, Pozicija polinom2, Pozicija polinomRezul
 
     Pozicija temp;
     temp = polinom1;
+     
     while(temp->slijedeci){
+        
         unesiUListu(polinomRezultat, kreirajElement(temp->slijedeci->koeficijent, temp->slijedeci->eksponent));
+        
         temp = temp->slijedeci;
     }
+     
     temp = polinom2;
+     
     while(temp->slijedeci){
+        
         unesiUListu(polinomRezultat, kreirajElement(temp->slijedeci->koeficijent, temp->slijedeci->eksponent));
+        
         temp = temp->slijedeci;
+        
     }
+     
     return 0;
  }
